@@ -1,4 +1,10 @@
-{% extends "layout.html" %} 
+{% extends "layout.html" %}
 {% block content %}
-    <h1>Home</h1>
+<div>
+    {% for action in actions %}
+    <div>
+        {{ action.actionName }}
+    </div>
+    {% endfor %}
+</div>
 {% endblock %}
