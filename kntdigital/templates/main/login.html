@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="container-fluid login-parent-div">
+<div class="container-fluid parent-div">
     <div class="content-section">
         <form method="POST" action="">
             {{ form.hidden_tag() }}
@@ -42,7 +42,7 @@
             <div class="form-group">
                 {{ form.submit(class = "btn btn-outline-info") }}
                 <small class="text-muted">
-                    <a class="ml-2" href="#">Forgot Password?</a>
+                    <a class="ml-2" href="{{ url_for('main.reset_request') }}">Forgot Password?</a>
                 </small>
             </div>
         </form>
