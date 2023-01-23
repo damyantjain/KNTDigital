@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+{% block content %}
+<div>
+    <h1>Employee</h1>
+    <a class="btn btn-outline-success mb-3" style="width: 200px;" href="{{ url_for('employee.add_employee') }}">
+        Add Employee
+    </a>
+</div>
+{% endblock %}

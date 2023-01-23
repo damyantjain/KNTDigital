@@ -26,6 +26,10 @@ def create_app(config_class=Config):
     db.init_app(app)
 
     from kntdigital.main.routes import main
+    from kntdigital.action.routes import action
+    from kntdigital.action.employee.routes import employee
 
     app.register_blueprint(main)
+    app.register_blueprint(action)
+    app.register_blueprint(employee)
     return app

@@ -14,7 +14,6 @@ def home():
     # cursor = mysql.connection.cursor()
     # cursor.execute(f"SELECT * FROM user WHERE email='{current_user.email}'")
     # users = cursor.fetchall()
-    users = User.query.all()
     user = User.query.filter_by(email=current_user.email).first()
     if user is None:
         return redirect(url_for("main.login"))

@@ -1,10 +1,16 @@
 {% extends "layout.html" %}
 {% block content %}
-<div>
-    {% for action in actions %}
-    <div>
-        {{ action.actionName }}
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <!-- <legend class="mb-4">Actions</legend> -->
+            {% for action in actions %}
+            <a class="btn btn-secondary mb-3" style="width: 200px;"
+                href="{{ url_for('action.init_action', action_id = action.id) }}">
+                {{ action.actionName }}
+            </a>
+            {% endfor %}
+        </div>
     </div>
-    {% endfor %}
 </div>
 {% endblock %}
