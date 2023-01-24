@@ -9,6 +9,29 @@ from kntdigital.action.decorator import requires_action_access
 action = Blueprint("action", __name__)
 
 
+def action_cash_book():
+    return render_template("actions/cash_book.html", title="Cash Book")
+
+
+def action_asset():
+    return render_template("actions/asset.html", title="Asset")
+
+
+def action_grocery():
+    return render_template("actions/grocery.html", title="Grocery")
+
+
+def action_stationary():
+    return render_template("actions/stationary.html", title="Stationary")
+
+
+def action_employee():
+    employees = User.query.all()
+    return render_template(
+        "actions/employee.html", title="Employee", employees=employees
+    )
+
+
 @action.route("/action/<int:action_id>")
 @login_required
 def init_action(action_id):
@@ -19,14 +42,14 @@ def init_action(action_id):
             return render_template("main/home.html")
     match action_id:
         case 1:
-            return render_template("actions/cash_book.html", title="Cash Book")
+            return action_cash_book()
         case 2:
-            return render_template("actions/asset.html", title="Asset")
+            return action_asset()
         case 3:
-            return render_template("actions/grocery.html", title="Grocery")
+            return action_grocery()
         case 4:
-            return render_template("actions/stationary.html", title="Stationary")
+            return action_stationary()
         case 5:
-            return render_template("actions/employee.html", title="Employee")
+            return action_employee()
         case _:
             return render_template("main/home.html")
