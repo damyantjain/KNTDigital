@@ -1,7 +1,7 @@
 from kntdigital import db, login_manager
 from flask_login import UserMixin
 from flask import current_app
-import jwt
+import jwt, secrets
 
 
 @login_manager.user_loader
@@ -20,9 +20,15 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
     image = db.Column(db.String(60), nullable=False, default="default.jpg")
-    password = db.Column(db.String(60), nullable=False)
-    name = db.Column(db.String(100), nullable=False)
-    access_id = db.Column(db.Integer, db.ForeignKey("access.id"), nullable=False)
+    password = db.Column(db.String(60), nullable=False, default=secrets.token_hex(16))
+    first_name = db.Column(db.String(50), nullable=False)
+    last_name = db.Column(db.String(50), nullable=False)
+    gender = db.Column(db.String(10), nullable=False)
+    phone_number = db.Column(db.String(20), nullable=True)
+    access_id = db.Column(
+        db.Integer, db.ForeignKey("access.id"), nullable=False, default=2
+    )
+    is_archive = db.Column(db.Boolean, nullable=False, default=False)
     access = db.relationship("Access", backref="access", lazy=True)
     actions = db.relationship(
         "Action", secondary=user_actions, backref="actions", lazy=True
@@ -45,7 +51,7 @@ class User(db.Model, UserMixin):
         return User.query.get(user_id)
 
     def __repr__(self):
-        return f"User('{self.username}', '{self.email}', {self.image_file}', '{self.access}', {self.access_data})"
+        return f"User('{self.first_name} {self.last_name}', '{self.email}', {self.image}', '{self.access}')"
 
 
 class Access(db.Model):
