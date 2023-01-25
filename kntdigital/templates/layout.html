@@ -3,10 +3,14 @@
 
 <head>
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+        crossorigin="anonymous" />
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <script src="https://code.jquery.com/jquery-3.6.3.js"
+        integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+    <script src="../static/scripts.js"></script>
+    <script src="../../static/scripts.js"></script>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='action.css') }}" />
     {% if title: %}
@@ -19,28 +23,39 @@
 
 <body>
     <header class="site-header">
-        <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-steel fixed-top">
             <div class="container">
-                <a class="navbar-brand mr-4" href="/">Kanak New Traders</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
-                    aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+                <a class="navbar-brand" href="#">Kanak New Traders</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarToggle">
-                    <div class="navbar-nav mr-auto">
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         {% if current_user.is_authenticated %}
-                        <a class="nav-item nav-link" href="{{ url_for('main.home') }}">Home</a>
+                        <li class="nav-item">
+                            <a class="nav-item nav-link" href="{{ url_for('main.home') }}">Home</a>
+                        </li>
                         {% endif %}
-                    </div>
-                    <!-- Navbar Right Side -->
-                    <div class="navbar-nav">
+                    </ul>
+                    <ul class="navbar-nav mb-2 mb-lg-0">
                         {% if current_user.is_authenticated %}
-                        <a class="nav-item nav-link" href="#">Account</a>
-                        <a class="nav-item nav-link" href="{{ url_for('main.logout') }}">Logout</a>
+                        <li class="nav-item">
+                            <a class="nav-item nav-link" href="#">Account</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-item nav-link" href="{{ url_for('main.logout') }}">Logout</a>
+                        </li>
                         {% else %}
-                        <a class="nav-item nav-link" href="{{ url_for('main.login') }}">Login</a>
+                        <li class="nav-item">
+                            <a class="nav-item nav-link" href="{{ url_for('main.login') }}">Login</a>
+                        </li>
                         {% endif %}
-                    </div>
+                    </ul>
+
+
                 </div>
             </div>
         </nav>
@@ -49,27 +64,38 @@
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages: %}
         {% for category, message in messages %}
-        <div class="alert alert-{{ category }}">{{message}}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
+        <div class="flash-message">
+            <div class="row alert alert-{{ category }}">
+                <div class="col">
+                    {{ message }}
+                </div>
+                <div style="text-align: right;" class="col">
+                    <button type="button" class="btn-close" aria-label="Close"></button>
+                </div>
+            </div>
         </div>
+
         {% endfor %}
         {% endif %}
         {% endwith %}
         <div class="row">{% block content %}{% endblock %}</div>
     </main>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script>
+    <script>
+
+        $(".btn-close").click(function () {
+            $(this).parent().parent().hide();
+        });
+    </script>
+    <!-- Popper.js, then Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
         crossorigin="anonymous"></script>
 </body>
 

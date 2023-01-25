@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="container">
+<div class="container" id="test">
     <header class="header-style">Employees</header>
 
     <div class="row">
@@ -17,23 +17,24 @@
         </div>
     </div>
     <div>
-        <table class="table" id="employee-table">
-            <thead class="thead-dark">
+        <table class="table table-striped table-hover" id="employee-table">
+            <thead class="table-dark">
                 <tr>
                     <th scope="col">Name</th>
                     <th scope="col">Email</th>
                     <th scope="col">Phone</th>
                 </tr>
+            <tbody>
                 {% for employee in employees %}
-                <tr>
+                <tr onclick="sendAjaxRequest(event)">
                     <td scope="row">{{employee.first_name}} {{employee.last_name}}</td>
-                    <td scope="row">{{employee.email}}</td>
+                    <td name="{{ employee.id }}" data-name="email" scope="row">{{employee.email}}</td>
                     <td scope="row">{{employee.phone_number}}</td>
                 </tr>
                 {% endfor %}
+            </tbody>
             </thead>
         </table>
     </div>
 </div>
-<script src="../../static/scripts.js"></script>
 {% endblock %}

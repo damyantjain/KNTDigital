@@ -1,3 +1,16 @@
+
+function editEmployee(){
+    document.getElementById("edit_button").style.display = "none";
+    document.getElementById("employee_data_edit").style.display="";
+    document.getElementById("cancel_button").style.display="";
+}
+
+function cacelEditEmployee(){
+    document.getElementById("edit_button").style.display = "";
+    document.getElementById("employee_data_edit").style.display="none";
+    document.getElementById("cancel_button").style.display="none";
+}
+
 function searchEmployee(){
     var input = document.getElementById("search-input").value
     var filter = input.toUpperCase();
@@ -26,3 +39,23 @@ function searchEmployee(){
         }
     }
 }
+
+function sendAjaxRequest(event) {
+    let row = event.currentTarget;
+    let id = $(row).find('td[data-name="email"]').attr("name");;
+    console.log(id)
+    window.location.href = 'employee/'+ id;    
+
+    // $.ajax({
+    //     type: "POST",
+    //     url: "employee",
+    //     data: { "email": email },
+    //     success: function (response) {
+    //         $('#main-content').html(response);
+    //     }
+    // });  
+}
+
+
+
+
